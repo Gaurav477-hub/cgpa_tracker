@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="flex justify-between items-center mb-6">
+
+    <h2 class="text-2xl font-semibold text-gray-800">
+        Overall CGPA
+    </h2>
+
+    <a href="{{ url_for('analysis.goal') }}"
+       class="bg-primary text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+        Goal Planner
+    </a>
+
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow-md text-center">
+
+    <!-- CGPA Highlight -->
+    <p class="text-gray-500 mb-2">Your CGPA</p>
+
+    <h1 class="text-5xl font-bold mb-6
+        {% if cgpa >= 9 %}
+            text-green-600
+        {% elif cgpa >= 7 %}
+            text-yellow-500
+        {% elif cgpa > 0 %}
+            text-red-600
+        {% else %}
+            text-gray-500
+        {% endif %}
+    ">
+        {{ cgpa }}
+    </h1>
+
+    <hr class="mb-6">
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="text-gray-500 text-sm">Total Credits</p>
+            <h3 class="text-xl font-semibold text-gray-800">
+                {{ total_credits }}
+            </h3>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="text-gray-500 text-sm">Status</p>
+            <h3 class="text-xl font-semibold
+                {% if cgpa >= 9 %}
+                    text-green-600
+                {% elif cgpa >= 7 %}
+                    text-yellow-500
+                {% elif cgpa > 0 %}
+                    text-red-600
+                {% else %}
+                    text-gray-500
+                {% endif %}
+            ">
+                {% if cgpa >= 9 %}
+                    Excellent
+                {% elif cgpa >= 7 %}
+                    Good
+                {% elif cgpa > 0 %}
+                    Needs Improvement
+                {% else %}
+                    No Data
+                {% endif %}
+            </h3>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

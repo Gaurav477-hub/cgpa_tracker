@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="flex justify-between items-center mb-6">
+
+    <h2 class="text-2xl font-semibold text-gray-800">
+        All Semesters
+    </h2>
+
+    <a href="{{ url_for('semesters.add_semester') }}"
+       class="bg-success text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition">
+        + Add Semester
+    </a>
+
+</div>
+
+{% if semesters|length == 0 %}
+
+<div class="bg-white p-6 rounded-xl shadow text-center">
+    <p class="text-gray-500 mb-4">
+        No semesters added yet.
+    </p>
+
+    <a href="{{ url_for('semesters.add_semester') }}"
+       class="bg-success text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition">
+        + Add Your First Semester
+    </a>
+</div>
+
+{% else %}
+
+<div class="bg-white rounded-xl shadow overflow-hidden">
+
+    <table class="w-full text-sm text-center">
+
+        <thead class="bg-gray-100 text-gray-700">
+            <tr>
+                <th class="p-3">ID</th>
+                <th class="p-3">Semester</th>
+                <th class="p-3">SGPA</th>
+                <th class="p-3">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for sem in semesters %}
+            <tr class="border-t hover:bg-gray-50 transition">
+
+                <td class="p-3 text-gray-600">
+                    {{ sem["id"] }}
+                </td>
+
+                <td class="p-3 font-medium text-gray-800">
+                    Sem {{ sem["semester_number"] }}
+                </td>
+
+                <td class="p-3">
+                    <span class="font-semibold
+                        {% if sem['sgpa'] >= 9 %}
+                            text-green-600
+                        {% elif sem['sgpa'] >= 7 %}
+                            text-yellow-500
+                        {% elif sem['sgpa'] > 0 %}
+                            text-red-600
+                        {% else %}
+                            text-gray-500
+                        {% endif %}
+                    ">
+                        {{ sem["sgpa"] }}
+                    </span>
+                </td>
+
+                <td class="p-3 space-x-2">
+
+                    <a href="{{ url_for('semesters.semester_detail', sem_id=sem['id']) }}"
+                       class="bg-primary text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+                        View
+                    </a>
+
+                    <a href="{{ url_for('semesters.edit_semester', sem_id=sem['id']) }}"
+                       class="bg-warning text-white px-3 py-1 rounded hover:bg-yellow-600 transition">
+                        Edit
+                    </a>
+
+                    <form action="{{ url_for('semesters.delete_semester', sem_id=sem['id']) }}"
+                          method="POST"
+                          class="inline">
+                        <button type="submit"
+                                onclick="return confirm('Delete this semester? This will also delete all subjects inside it.')"
+                                class="bg-danger text-white px-3 py-1 rounded hover:bg-red-700 transition">
+                            Delete
+                        </button>
+                    </form>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

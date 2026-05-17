@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+venv/
+env/
+
+instance/
+database.db
+
+.vercel/
+.DS_Store

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center mt-12">
+
+    <!-- Title -->
+    <h2 class="text-4xl font-bold text-gray-800 mb-4">
+        Track Your Academic Performance
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="text-gray-500 mb-8 max-w-2xl mx-auto">
+        Manage semesters, subjects, SGPA, CGPA, performance analysis, and academic goals — all in one place.
+    </p>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-center gap-4 flex-wrap">
+
+        {% if session.get("user_id") %}
+
+            <a href="{{ url_for('main.dashboard') }}"
+               class="bg-primary text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                Go to Dashboard
+            </a>
+
+            <a href="{{ url_for('semesters.add_semester') }}"
+               class="bg-success text-white px-5 py-2 rounded-lg shadow hover:bg-green-700 transition">
+                Add Semester
+            </a>
+
+            <a href="{{ url_for('semesters.semesters') }}"
+               class="bg-secondary text-white px-5 py-2 rounded-lg shadow hover:bg-gray-800 transition">
+                View Semesters
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('auth.register') }}"
+               class="bg-success text-white px-5 py-2 rounded-lg shadow hover:bg-green-700 transition">
+                Get Started
+            </a>
+
+            <a href="{{ url_for('auth.login') }}"
+               class="bg-primary text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                Login
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- FEATURE CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+
+    <div class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+            SGPA & CGPA Tracking
+        </h3>
+        <p class="text-gray-500 text-sm">
+            Add semesters and subjects to calculate academic performance automatically.
+        </p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+            Performance Analysis
+        </h3>
+        <p class="text-gray-500 text-sm">
+            View best semester, weakest semester, subject insights, and academic trends.
+        </p>
+    </div>
+
+    <div class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+            Goal Planning
+        </h3>
+        <p class="text-gray-500 text-sm">
+            Set a target CGPA and calculate the SGPA needed in upcoming credits.
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

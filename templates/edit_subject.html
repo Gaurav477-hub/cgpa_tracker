@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-md">
+
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">
+        Edit Subject
+    </h2>
+
+    <form method="POST" class="space-y-4">
+
+        <!-- Subject Name -->
+        <div>
+            <label class="block text-gray-600 mb-1">Subject Name</label>
+            <input
+                name="name"
+                value="{{ subject['name'] }}"
+                required
+                class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+        </div>
+
+        <!-- Credits -->
+        <div>
+            <label class="block text-gray-600 mb-1">Credits</label>
+            <input
+                type="number"
+                name="credits"
+                min="1"
+                value="{{ subject['credits'] }}"
+                required
+                class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+        </div>
+
+        <!-- Grade -->
+        <div>
+            <label class="block text-gray-600 mb-1">Grade</label>
+            <select
+                name="grade"
+                required
+                class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+                <option value="O" {% if subject['grade'] == 'O' %}selected{% endif %}>O</option>
+                <option value="A+" {% if subject['grade'] == 'A+' %}selected{% endif %}>A+</option>
+                <option value="A" {% if subject['grade'] == 'A' %}selected{% endif %}>A</option>
+                <option value="B+" {% if subject['grade'] == 'B+' %}selected{% endif %}>B+</option>
+                <option value="B" {% if subject['grade'] == 'B' %}selected{% endif %}>B</option>
+                <option value="C" {% if subject['grade'] == 'C' %}selected{% endif %}>C</option>
+                <option value="P" {% if subject['grade'] == 'P' %}selected{% endif %}>P</option>
+                <option value="F" {% if subject['grade'] == 'F' %}selected{% endif %}>F</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-between items-center">
+
+            <a href="{{ url_for('semesters.semester_detail', sem_id=sem_id) }}"
+               class="text-sm text-gray-500 hover:underline">
+                ← Back
+            </a>
+
+            <button
+                type="submit"
+                onclick="return confirm('Update this subject?')"
+                class="bg-warning text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition"
+            >
+                Update
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background: #2563eb;
+    color: white;
+}

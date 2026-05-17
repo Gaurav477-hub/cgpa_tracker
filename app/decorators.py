@@ -1,0 +1,16 @@
+from functools import wraps
+from flask import session, redirect
+
+
+def login_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if "user_id" not in session:
+            return redirect("/login")
+        return f(*args, **kwargs)
+
+    return wrapper
+
+
+def get_current_user():
+    return session.get("user_id")
